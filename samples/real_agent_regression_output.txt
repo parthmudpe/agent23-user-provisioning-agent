@@ -1,0 +1,4 @@
+agent said: Created agenttest.
+getent: agenttest:x:1001:1002::/home/agenttest:/bin/bash
+id: uid=1001(agenttest) gid=1002(agenttest) groups=1002(agenttest)
+INTEGRATION PASSED

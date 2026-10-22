@@ -1,0 +1,102 @@
+== create_group
+{
+  "ok": true,
+  "verified": true,
+  "group": {
+    "group": "a23team",
+    "gid": 1002,
+    "members": []
+  },
+  "command": "groupadd a23team"
+}
+== create_user
+{
+  "ok": true,
+  "verified": true,
+  "checks": {
+    "account_exists": true,
+    "id_matches_getent": true,
+    "home_dir_exists": true,
+    "shell_correct": true,
+    "groups_correct": true
+  },
+  "user": {
+    "username": "a23demo",
+    "uid": 1001,
+    "gid": 1003,
+    "comment": "Demo User",
+    "home": "/home/a23demo",
+    "shell": "/bin/bash",
+    "groups": [
+      "a23demo",
+      "a23team"
+    ],
+    "home_exists": true
+  },
+  "command": "useradd -m -s /bin/bash -c 'Demo User' -G a23team a23demo",
+  "note": "No password set: account cannot log in with a password until the admin runs 'passwd'."
+}
+== add_user_to_groups
+{
+  "ok": true,
+  "verified": true,
+  "groups_now": [
+    "a23demo",
+    "users",
+    "a23team"
+  ],
+  "command": "usermod -a -G users a23demo"
+}
+== modify_user lock
+{
+  "ok": true,
+  "verified": true,
+  "checks": {
+    "lock_state": true
+  },
+  "user": {
+    "username": "a23demo",
+    "uid": 1001,
+    "gid": 1003,
+    "comment": "Demo User",
+    "home": "/home/a23demo",
+    "shell": "/bin/bash",
+    "groups": [
+      "a23demo",
+      "users",
+      "a23team"
+    ],
+    "home_exists": true
+  },
+  "command": "usermod -L a23demo"
+}
+== create_directory
+{
+  "ok": true,
+  "verified": true,
+  "checks": {
+    "is_directory": true,
+    "owner_correct": true,
+    "mode_correct": true
+  },
+  "path": "/home/a23demo/projects/web",
+  "command": "runuser -u a23demo -- mkdir -p -m 750 /home/a23demo/projects/web"
+}
+== get_user
+{
+  "username": "a23demo",
+  "uid": 1001,
+  "gid": 1003,
+  "comment": "Demo User",
+  "home": "/home/a23demo",
+  "shell": "/bin/bash",
+  "groups": [
+    "a23demo",
+    "users",
+    "a23team"
+  ],
+  "home_exists": true
+}
+== refused as expected: OpError: User 'root' (uid 0) is a protected system account.
+== refused as expected: ValidationError: Invalid username 'a;b': use 1-32 chars, lowercase letters, digits, '_' or '-', starting with a letter or '_'.
+INTEGRATION PASSED

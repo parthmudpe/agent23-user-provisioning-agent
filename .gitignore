@@ -1,0 +1,17 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.pytest_cache/
+.coverage
+*.log
+
+# Backup files
+*.bak
+*.bak.*
+*.before_*
+*.pre_execution_fix
+backup_before_ollama/
